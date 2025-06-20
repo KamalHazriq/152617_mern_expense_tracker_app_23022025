@@ -1,70 +1,59 @@
-import React from "react";
-import CARD_2 from "../../assets/images/card2.png";
-import { LuTrendingUpDown } from "react-icons/lu";
+import React, { useEffect, useState } from "react";
 
 const AuthLayout = ({ children }) => {
+  const [darkMode, setDarkMode] = useState(() => {
+    return localStorage.getItem("theme") === "dark";
+  });
+
+  useEffect(() => {
+    const root = document.documentElement;
+    if (darkMode) {
+      root.classList.add("dark-mode");
+      localStorage.setItem("theme", "dark");
+    } else {
+      root.classList.remove("dark-mode");
+      localStorage.setItem("theme", "light");
+    }
+  }, [darkMode]);
+
   return (
     <div
-      className="flex"
+      className="h-screen w-screen flex items-center justify-center relative transition-colors duration-500"
       style={{
-        backgroundColor: "var(--bg-color)",
+        background: darkMode
+          ? "linear-gradient(135deg, #1e1e1e, #2a2a2a)"
+          : "linear-gradient(135deg, #f5f7fa, #c3cfe2)",
         color: "var(--text-color)",
-        minHeight: "100vh",
       }}
     >
-      <div className="w-screen h-screen md:w-[60vw] px-12 pt-8 pb-12">
-        <h2 className="text-lg font-medium">FinTrack: Your Personal Finance Tracker</h2>
-        {children}
-      </div>
-
-      <div className="hidden md:block w-[40vw] h-screen bg-violet-50 bg-auth-bg-img bg-cover bg-no-repeat bg-center overflow-hidden p-8 relative">
-        <div className="w-48 h-48 rounded-[40px] bg-purple-600 absolute -top-7 -left-5" />
-        <div className="w-48 h-56 rounded-[40px] border-[20px] border-fuchsia-600 absolute top-[30%] -right-10" />
-        <div className="w-48 h-48 rounded-[40px] bg-violet-500 absolute -bottom-7 -left-5" />
-
-        <div className="grid grid-cols-1 z-20">
-          <StatsInfoCard
-            icon={<LuTrendingUpDown />}
-            label="Track Your Income & Expenses"
-            value="430,000"
-            color="bg-primary"
-          />
-        </div>
-
-        <img
-          src={CARD_2}
-          className="w-64 lg:w-[90%] absolute bottom-10 shadow-lg shadow-blue-400/15"
-          alt="Finance Illustration"
-        />
-      </div>
-    </div>
-  );
-};
-
-const StatsInfoCard = ({ icon, label, value, color }) => {
-  return (
-    <div
-      className="flex gap-6 p-4 rounded-xl shadow-md z-10"
-      style={{
-        backgroundColor: "var(--card-bg)",
-        color: "var(--text-color)",
-        border: "1px solid var(--card-border)",
-        boxShadow: "0 4px 12px rgba(0,0,0,0.05)",
-      }}
-    >
-      <div
-        className={`w-12 h-12 flex items-center justify-center text-[26px] text-white ${color} rounded-full drop-shadow-xl`}
-      >
-        {icon}
-      </div>
-      <div>
-        <h6
-          className="text-xs mb-1"
-          style={{ color: "var(--subtext-color)" }}
+      {/* Dark mode toggle */}
+      <div className="absolute top-4 right-6">
+        <button
+          onClick={() => setDarkMode(!darkMode)}
+          className="px-3 py-1 text-sm border rounded-md transition-all duration-300 shadow-sm"
+          style={{
+            backgroundColor: darkMode ? "#444" : "#ffffff",
+            color: "var(--text-color)",
+            border: "1px solid var(--card-border)",
+          }}
         >
-          {label}
-        </h6>
-        <span className="text-[20px]">RM{value}</span>
+          {darkMode ? "☀️ Light Mode" : "🌙 Dark Mode"}
+        </button>
+      </div>
+
+      {/* Centered Card */}
+      <div
+        className="w-full max-w-md p-8 rounded-xl shadow-lg transition-all duration-500"
+        style={{
+          backgroundColor: "var(--card-bg)",
+          color: "var(--text-color)",
+          border: "1px solid var(--card-border)",
+        }}
+      >
+        <h2 className="text-xl font-semibold mb-6 text-center">
+          FinTrack: Your Personal Finance Tracker
+        </h2>
+        {children}
       </div>
     </div>
   );

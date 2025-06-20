@@ -5,6 +5,7 @@
   --text-color: #000000;
   --subtext-color: #666666;
   --primary: #875cf5;
+  transition: background-color 0.5s ease, color 0.5s ease;
 }
 
 .dark-mode {
@@ -14,6 +15,7 @@
   --text-color: #ffffff;
   --subtext-color: #bbbbbb;
   --primary: #875cf5;
+  transition: background-color 0.5s ease, color 0.5s ease;
 }
 
 

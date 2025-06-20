@@ -15,7 +15,6 @@ const LoginForm = () => {
   const { updateUser } = useContext(UserContext);
   const navigate = useNavigate();
 
-  // Handle Login Form Submit
   const handleLogin = async (e) => {
     e.preventDefault();
 
@@ -31,7 +30,6 @@ const LoginForm = () => {
 
     setError("");
 
-    //Login API Call
     try {
       const response = await axiosInstance.post(API_PATHS.AUTH.LOGIN, {
         email,
@@ -55,9 +53,19 @@ const LoginForm = () => {
 
   return (
     <AuthLayout>
-      <div className="lg:w-[70%] h-3/4 md:h-full flex flex-col justify-center">
-        <h3 className="text-xl font-semibold text-black">Welcome Back</h3>
-        <p className="text-xs text-slate-700 mt-[5px] mb-6">
+      <div className="flex flex-col justify-center items-center w-full h-full">
+
+        <h3
+          className="text-xl font-semibold"
+          style={{ color: "var(--text-color)" }}
+        >
+          Welcome Back
+        </h3>
+
+        <p
+          className="text-xs mt-[5px] mb-6"
+          style={{ color: "var(--subtext-color)" }}
+        >
           Please enter your details to log in
         </p>
 
@@ -78,15 +86,32 @@ const LoginForm = () => {
             type="password"
           />
 
-          {error && <p className="text-red-500 text-xs pb-2.5">{error}</p>}
+          {error && (
+            <p className="text-red-500 text-xs pb-2.5">{error}</p>
+          )}
 
-          <button type="submit" className="btn-primary">
+          <button
+            type="submit"
+            className="w-full mt-2 py-2 px-4 rounded-md font-semibold transition-colors"
+            style={{
+              backgroundColor: "var(--primary)",
+              color: "#fff",
+              boxShadow: "0 4px 10px rgba(0,0,0,0.1)",
+            }}
+          >
             LOGIN
           </button>
 
-          <p className="text-[13px] text-slate-800 mt-3">
+          <p
+            className="text-[13px] mt-3"
+            style={{ color: "var(--subtext-color)" }}
+          >
             Don’t have an account?{" "}
-            <Link className="font-medium text-primary underline" to="/signup">
+            <Link
+              className="font-medium underline"
+              style={{ color: "var(--primary)" }}
+              to="/signup"
+            >
               SignUp
             </Link>
           </p>

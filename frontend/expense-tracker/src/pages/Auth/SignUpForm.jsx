@@ -20,32 +20,18 @@ const SignUpForm = () => {
   const { updateUser } = useContext(UserContext);
   const navigate = useNavigate();
 
-  // Handle Sign Up Form Submit
   const handleSignUp = async (e) => {
     e.preventDefault();
 
     let profileImageUrl = "";
 
-    if (!fullName) {
-      setError("Please enter your name");
-      return;
-    }
-
-    if (!validateEmail(email)) {
-      setError("Please enter a valid email address.");
-      return;
-    }
-
-    if (!password) {
-      setError("Please enter the password");
-      return;
-    }
+    if (!fullName) return setError("Please enter your name");
+    if (!validateEmail(email)) return setError("Please enter a valid email address.");
+    if (!password) return setError("Please enter the password");
 
     setError("");
 
-    // SignUp API Call
     try {
-      // Upload image if present
       if (profilePic) {
         const imgUploadRes = await uploadImage(profilePic);
         profileImageUrl = imgUploadRes.imageUrl || "";
@@ -66,7 +52,7 @@ const SignUpForm = () => {
         navigate("/dashboard");
       }
     } catch (error) {
-      if (error.response && error.response.data.message) {
+      if (error.response?.data?.message) {
         setError(error.response.data.message);
       } else {
         setError("Something went wrong. Please try again.");
@@ -76,9 +62,17 @@ const SignUpForm = () => {
 
   return (
     <AuthLayout>
-      <div className="lg:w-[100%] h-auto md:h-full mt-10 md:mt-0 flex flex-col justify-center">
-        <h3 className="text-xl font-semibold text-black">Create an Account</h3>
-        <p className="text-xs text-slate-700 mt-[5px] mb-6">
+      <div className="w-full max-w-xl flex flex-col justify-center">
+        <h3
+          className="text-xl font-semibold"
+          style={{ color: "var(--text-color)" }}
+        >
+          Create an Account
+        </h3>
+        <p
+          className="text-xs mt-[5px] mb-6"
+          style={{ color: "var(--subtext-color)" }}
+        >
           Join us today by entering your details below.
         </p>
 
@@ -113,15 +107,32 @@ const SignUpForm = () => {
             </div>
           </div>
 
-          {error && <p className="text-red-500 text-xs pb-2.5">{error}</p>}
+          {error && (
+            <p className="text-red-500 text-xs pb-2.5">{error}</p>
+          )}
 
-          <button type="submit" className="btn-primary">
+          <button
+            type="submit"
+            className="w-full mt-4 py-2 px-4 rounded-md font-semibold transition-colors"
+            style={{
+              backgroundColor: "var(--primary)",
+              color: "#fff",
+              boxShadow: "0 4px 10px rgba(0,0,0,0.1)",
+            }}
+          >
             SIGN UP
           </button>
 
-          <p className="text-[13px] text-slate-800 mt-3">
+          <p
+            className="text-[13px] mt-3"
+            style={{ color: "var(--subtext-color)" }}
+          >
             Already have an account?{" "}
-            <Link className="font-medium text-primary underline" to="/login">
+            <Link
+              className="font-medium underline"
+              style={{ color: "var(--primary)" }}
+              to="/login"
+            >
               Login
             </Link>
           </p>
