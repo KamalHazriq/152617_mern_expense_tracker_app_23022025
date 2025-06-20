@@ -1,0 +1,25 @@
+:root {
+  --card-bg: #ffffff;
+  --card-border: #e0e0e0;
+  --text-color: #000000;
+  --subtext-color: #666666;
+}
+
+.dark-mode {
+  --card-bg: #1f1f1f;
+  --card-border: #333333;
+  --text-color: #ffffff;
+  --subtext-color: #bbbbbb;
+}
+
+
+
+
+body {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  font-family: 'Poppins', sans-serif;
+  margin: 0;
+  padding: 0;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}

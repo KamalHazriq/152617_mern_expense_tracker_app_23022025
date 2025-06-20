@@ -8,6 +8,7 @@ import React from "react";
 import LoginForm from "./pages/Auth/LoginForm";
 import SignUpForm from "./pages/Auth/SignUpForm";
 import UserProvider from "./context/UserContext";
+import { useEffect, useState } from 'react';
 
 import { Toaster } from "react-hot-toast";
 import Home from "./pages/Dashboard/Home";

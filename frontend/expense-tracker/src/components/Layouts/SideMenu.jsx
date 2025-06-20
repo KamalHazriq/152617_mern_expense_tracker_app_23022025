@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { SIDE_MENU_DATA } from "../../utils/data";
 import { useNavigate } from "react-router-dom";
 import { UserContext } from "../../context/UserContext";
@@ -6,8 +6,24 @@ import CharAvatar from "../Cards/CharAvatar";
 
 const SideMenu = ({ activeMenu }) => {
   const { user, clearUser } = useContext(UserContext);
-
   const navigate = useNavigate();
+
+  const [darkMode, setDarkMode] = useState(() => {
+    return localStorage.getItem("theme") === "dark";
+  });
+
+ useEffect(() => {
+  const root = document.documentElement;
+
+  if (darkMode) {
+    root.classList.add("dark-mode");
+    localStorage.setItem("theme", "dark");
+  } else {
+    root.classList.remove("dark-mode");
+    localStorage.setItem("theme", "light");
+  }
+}, [darkMode]);
+
 
   const handleClick = (route) => {
     if (route === "logout") {
@@ -35,7 +51,7 @@ const SideMenu = ({ activeMenu }) => {
           />
         ) : (
           <CharAvatar
-            fullName={user.fullname}
+            fullName={user.fullName}
             width="w-20"
             height="h-20"
             style="text-xl"
@@ -59,6 +75,15 @@ const SideMenu = ({ activeMenu }) => {
           {item.label}
         </button>
       ))}
+
+      <div className="mt-8">
+        <button
+          className="w-full text-sm py-2 px-4 rounded-md bg-gray-100 hover:bg-gray-200 dark:bg-gray-700 dark:hover:bg-gray-600"
+          onClick={() => setDarkMode(!darkMode)}
+        >
+          {darkMode ? "☀️ Light Mode" : "🌙 Dark Mode"}
+        </button>
+      </div>
     </div>
   );
 };
