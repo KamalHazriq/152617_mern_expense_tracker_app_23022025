@@ -3,44 +3,49 @@ import { LuPlus } from "react-icons/lu";
 import CustomLineChart from "../Charts/CustomLineChart";
 import { prepareExpenseLineChartData } from "../../utils/helper";
 
-const ExpenseOverview = ({transactions, onExpenseIncome}) => {
-  const data = [
-    { month: "Jan", amount: 1200 },
-    { month: "Feb", amount: 1500 },
-    { month: "Mar", amount: 1800 },
-    { month: "Apr", amount: 1100 },
-    { month: "May", amount: 2000 },
-    { month: "Jun", amount: 1700 },
-    { month: "Jul", amount: 1900 },
-    { month: "Aug", amount: 2100 },
-    { month: "Sep", amount: 1600 },
-    { month: "Oct", amount: 2300 },
-    { month: "Nov", amount: 2500 },
-    { month: "Dec", amount: 2700 },
-  ];
-
+const ExpenseOverview = ({ transactions, onExpenseIncome }) => {
   const [chartData, setChartData] = useState([]);
 
   useEffect(() => {
     const result = prepareExpenseLineChartData(transactions);
     setChartData(result);
-
     return () => {};
   }, [transactions]);
 
   return (
-    <div className="card">
+    <div
+      className="rounded-xl p-5"
+      style={{
+        backgroundColor: "var(--card-bg)",
+        color: "var(--text-color)",
+        border: "1px solid var(--card-border)",
+        transition: "background-color 0.3s ease, border-color 0.3s ease",
+      }}
+    >
       <div className="flex items-center justify-between">
-        <div className="">
-          <h5 className="text-lg">Expense Overview</h5>
-          <p className="text-xs text-gray-400 mt-0.5">
+        <div>
+          <h5 className="text-lg font-semibold">Expense Overview</h5>
+          <p
+            className="text-xs mt-0.5"
+            style={{ color: "var(--subtext-color)" }}
+          >
             Track your spending trends over time and gain insights into where
             your money goes.
           </p>
         </div>
 
-        <button className="add-btn" onClick={onExpenseIncome}>
-          <LuPlus className="text-lg" />
+        <button
+          onClick={onExpenseIncome}
+          style={{
+            backgroundColor: "var(--primary)",
+            color: "#fff",
+            padding: "8px 14px",
+            fontSize: "14px",
+            fontWeight: "600",
+            borderRadius: "8px",
+          }}
+        >
+          <LuPlus className="text-lg inline mr-1" />
           Add Expense
         </button>
       </div>

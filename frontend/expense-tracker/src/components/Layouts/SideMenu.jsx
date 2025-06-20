@@ -12,25 +12,22 @@ const SideMenu = ({ activeMenu }) => {
     return localStorage.getItem("theme") === "dark";
   });
 
- useEffect(() => {
-  const root = document.documentElement;
-
-  if (darkMode) {
-    root.classList.add("dark-mode");
-    localStorage.setItem("theme", "dark");
-  } else {
-    root.classList.remove("dark-mode");
-    localStorage.setItem("theme", "light");
-  }
-}, [darkMode]);
-
+  useEffect(() => {
+    const root = document.documentElement;
+    if (darkMode) {
+      root.classList.add("dark-mode");
+      localStorage.setItem("theme", "dark");
+    } else {
+      root.classList.remove("dark-mode");
+      localStorage.setItem("theme", "light");
+    }
+  }, [darkMode]);
 
   const handleClick = (route) => {
     if (route === "logout") {
       handelLogout();
       return;
     }
-
     navigate(route);
   };
 
@@ -41,7 +38,15 @@ const SideMenu = ({ activeMenu }) => {
   };
 
   return (
-    <div className="w-64 h-[calc(100vh-61px)] bg-white border-r border-gray-200/50 p-5 sticky top-[61px] z-20">
+    <div
+      className="w-64 h-[calc(100vh-61px)] sticky top-[61px] z-20 p-5"
+      style={{
+        backgroundColor: "var(--card-bg)",
+        borderRight: "1px solid var(--card-border)",
+        color: "var(--text-color)",
+        transition: "background-color 0.3s ease, border-color 0.3s ease",
+      }}
+    >
       <div className="flex flex-col items-center justify-center gap-3 mt-3 mb-7">
         {user?.profileImageUrl ? (
           <img
@@ -58,7 +63,10 @@ const SideMenu = ({ activeMenu }) => {
           />
         )}
 
-        <h5 className="text-gray-950 font-medium leading-6">
+        <h5
+          className="font-medium leading-6"
+          style={{ color: "var(--text-color)" }}
+        >
           {user.fullName || ""}
         </h5>
       </div>
@@ -66,10 +74,21 @@ const SideMenu = ({ activeMenu }) => {
       {SIDE_MENU_DATA.map((item, index) => (
         <button
           key={`menu_${index}`}
-          className={`w-full flex items-center gap-4 text-[15px] ${
-            activeMenu == item.label ? "text-white bg-primary" : ""
-          } py-3 px-6 rounded-lg mb-3`}
           onClick={() => handleClick(item.path)}
+          className={`w-full flex items-center gap-4 text-[15px] py-3 px-6 rounded-lg mb-3 ${
+            activeMenu === item.label
+              ? "text-white bg-primary"
+              : ""
+          }`}
+          style={{
+            backgroundColor:
+              activeMenu === item.label ? "var(--primary)" : "transparent",
+            color:
+              activeMenu === item.label
+                ? "#ffffff"
+                : "var(--text-color)",
+            transition: "background-color 0.3s, color 0.3s",
+          }}
         >
           <item.icon className="text-xl" />
           {item.label}
@@ -78,8 +97,16 @@ const SideMenu = ({ activeMenu }) => {
 
       <div className="mt-8">
         <button
-          className="w-full text-sm py-2 px-4 rounded-md bg-gray-100 hover:bg-gray-200 dark:bg-gray-700 dark:hover:bg-gray-600"
           onClick={() => setDarkMode(!darkMode)}
+          className="w-full text-sm py-2 px-4 rounded-md"
+          style={{
+            backgroundColor: darkMode
+              ? "#444"
+              : "#f0f0f0",
+            color: "var(--text-color)",
+            border: "1px solid var(--card-border)",
+            transition: "all 0.3s ease",
+          }}
         >
           {darkMode ? "☀️ Light Mode" : "🌙 Dark Mode"}
         </button>

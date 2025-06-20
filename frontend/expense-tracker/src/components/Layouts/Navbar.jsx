@@ -6,12 +6,18 @@ const Navbar = ({ activeMenu }) => {
   const [openSideMenu, setOpenSideMenu] = useState(false);
 
   return (
-    <div className="flex gap-5 bg-white border boredr-b border-gray-200/50 backdrop-blur-[2px] py-4 px-7 sticky top-0 z-30">
+    <div
+      className="flex gap-5 border-b backdrop-blur-[2px] py-4 px-7 sticky top-0 z-30"
+      style={{
+        backgroundColor: "var(--card-bg)",
+        color: "var(--text-color)",
+        borderBottom: "1px solid var(--card-border)",
+      }}
+    >
       <button
-        className="block lg:hidden text-black"
-        onClick={() => {
-          setOpenSideMenu(!openSideMenu);
-        }}
+        className="block lg:hidden"
+        onClick={() => setOpenSideMenu(!openSideMenu)}
+        style={{ color: "var(--text-color)" }}
       >
         {openSideMenu ? (
           <HiOutlineX className="text-2xl" />
@@ -20,10 +26,16 @@ const Navbar = ({ activeMenu }) => {
         )}
       </button>
 
-      <h2 className="text-lg font-medium text-black">FinTrack: Your Personal Finance Tracker</h2>
+      <h2 className="text-lg font-medium">FinTrack: Your Personal Finance Tracker</h2>
 
       {openSideMenu && (
-        <div className="fixed top-[61px] -ml-4 bg-white">
+        <div
+          className="fixed top-[61px] left-0 z-40"
+          style={{
+            backgroundColor: "var(--card-bg)",
+            borderRight: "1px solid var(--card-border)",
+          }}
+        >
           <SideMenu activeMenu={activeMenu} />
         </div>
       )}

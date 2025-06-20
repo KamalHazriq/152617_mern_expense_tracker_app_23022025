@@ -1,12 +1,32 @@
 import React from "react";
 
 const CustomTooltip = ({ active, payload }) => {
+  const isDark = document.documentElement.classList.contains("dark-mode");
+
   if (active && payload && payload.length) {
     return (
-      <div className="bg-white shadow-md rounded-lg p-2 border border-gray-300">
-        <p className="text-xs font-semibold text-purple-800 mb-1">{payload[0].name}</p>
-        <p className="text-sm text-gray-600">
-          Amount: <span className="text-sm font-medium text-gray-900">RM{payload[0].value}</span>
+      <div
+        style={{
+          backgroundColor: isDark ? "#2e2e2e" : "#ffffff",
+          color: isDark ? "#f0f0f0" : "#333333",
+          border: "1px solid var(--card-border)",
+          borderRadius: "8px",
+          padding: "8px",
+          fontSize: "12px",
+          boxShadow: "0 4px 10px rgba(0,0,0,0.1)",
+        }}
+      >
+        <p
+          style={{
+            fontWeight: 600,
+            marginBottom: 4,
+            color: "#875cf5",
+          }}
+        >
+          {payload[0].name}
+        </p>
+        <p>
+          Amount: <strong>RM{payload[0].value}</strong>
         </p>
       </div>
     );

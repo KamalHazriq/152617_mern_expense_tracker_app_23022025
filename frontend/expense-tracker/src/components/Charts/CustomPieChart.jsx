@@ -10,6 +10,7 @@ import CustomLegend from "./CustomLegend";
 import CustomTooltip from "./CustomTooltip";
 
 const CustomPieChart = ({ data, label, totalAmount, showTextAnchor, colors }) => {
+  const isDark = document.documentElement.classList.contains("dark-mode");
 
   return (
     <ResponsiveContainer width="100%" height={380}>
@@ -28,6 +29,7 @@ const CustomPieChart = ({ data, label, totalAmount, showTextAnchor, colors }) =>
             <Cell key={`cell-${index}`} fill={colors[index % colors.length]} />
           ))}
         </Pie>
+
         <Tooltip content={<CustomTooltip />} />
         <Legend content={<CustomLegend />} />
 
@@ -38,8 +40,8 @@ const CustomPieChart = ({ data, label, totalAmount, showTextAnchor, colors }) =>
               y="50%"
               dy={-25}
               textAnchor="middle"
-              fill="#666"
               fontSize="14px"
+              fill="var(--subtext-color)"
             >
               {label}
             </text>
@@ -48,9 +50,9 @@ const CustomPieChart = ({ data, label, totalAmount, showTextAnchor, colors }) =>
               y="50%"
               dy={8}
               textAnchor="middle"
-              fill="#333"
               fontSize="24px"
-              fontWeight="semi-bold"
+              fontWeight="600"
+              fill="var(--text-color)"
             >
               {totalAmount}
             </text>
