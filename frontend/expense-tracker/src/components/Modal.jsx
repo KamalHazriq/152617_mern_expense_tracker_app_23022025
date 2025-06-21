@@ -5,9 +5,9 @@ const Modal = ({ isOpen, onClose, children, title }) => {
 
   return (
     <div className="fixed inset-0 z-50 flex justify-center items-center bg-black/30 backdrop-blur-sm px-4">
-      <div className="relative p-4 w-full max-w-2xl max-h-full">
+      <div className="relative p-4 w-full max-w-2xl max-h-[90vh] flex flex-col">
         <div
-          className="rounded-lg shadow-sm transition-all duration-300"
+          className="rounded-lg shadow-sm transition-all duration-300 flex flex-col max-h-full"
           style={{
             backgroundColor: "var(--card-bg)",
             color: "var(--text-color)",
@@ -49,8 +49,13 @@ const Modal = ({ isOpen, onClose, children, title }) => {
             </button>
           </div>
 
-          {/* Modal body */}
-          <div className="p-4 space-y-4">{children}</div>
+          {/* Scrollable Modal body */}
+          <div
+            className="p-4 space-y-4 overflow-y-auto"
+            style={{ maxHeight: "75vh" }}
+          >
+            {children}
+          </div>
         </div>
       </div>
     </div>
